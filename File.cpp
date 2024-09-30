@@ -44,7 +44,24 @@ bool File::operator<(const File& rhs) const {
 // =========================== YOUR CODE HERE ===========================
 
 File::File(const std::string& filename, std::string contents, int *icon){
-   filename_ = filename;
+   
+   std::string realfilename = filename;
+
+   int pcounter = 0;
+   for (int i = 0; i < filename.length(); i++){
+      if (filename[i] == '.')
+         pcounter++;
+      if ((!std::isalnum(filename[i]) && filename[i] != '.') || pcounter >= 2)
+         throw InvalidFormatException("Invalid Folder Name: " + filename);
+      if (i == filename.length() - 1){
+         if (filename[i] == '.')   
+            realfilename = filename + "txt";
+         else if (pcounter == 0)
+            realfilename = filename + ".txt";
+      }
+   }
+
+   filename_ = realfilename;
    contents_ = contents;
    icon_ = icon;
 }
