@@ -1,0 +1,10 @@
+copy constructor:
+Int hello = goodbye;
+Int hello {goodbye};
+move constructor:
+Int hello = std::move(goodbye);
+
+copy assignment:
+hello = goodbye (hello is already initialized)
+move assignment:
+hello = std::move(goodbye);

@@ -43,23 +43,51 @@ bool File::operator<(const File& rhs) const {
 
 // =========================== YOUR CODE HERE ===========================
 
-File::File(const std::string& filename){
-
+File::File(const std::string& filename, std::string contents, int *icon){
+   filename_ = filename;
+   contents_ = contents;
+   icon_ = icon;
 }
 
-size_t File::getSize(){
-   return ICON_DIM;
+size_t File::getSize() const{
+   return contents_.size() + filename_.size();
 }
 
+//copy constructor
 File::File(const File& rhs){
-
+   filename_ = rhs.filename_;
+   contents_ = rhs.contents_;
+   icon_ = rhs.icon_;
 }
 
-File& File::copyFile(const File& rhs){
+//copy assignment
+File& File::operator = (const File& rhs){
+   filename_ = rhs.filename_;
+   contents_ = rhs.contents_;
+   icon_ = rhs.icon_;
 
+   return *this;
 }
 
-void File::moveFile(File rhs){
-
+//move constructor
+File::File(File && rhs){
+   filename_ = std::move(rhs.filename_);
+   contents_ = std::move(rhs.contents_);
+   icon_ = std::move(rhs.icon_);
 }
 
+//move assignment
+File& File::operator = (File && rhs){
+   filename_ = std::move(rhs.filename_);
+   contents_ = std::move(rhs.contents_);
+   icon_ = std::move(rhs.icon_);
+
+   return *this;
+}
+
+//destructor
+File::~File(){
+   filename_ = "";
+   contents_ = "";
+   delete icon_;
+}
