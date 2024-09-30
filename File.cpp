@@ -43,8 +43,12 @@ bool File::operator<(const File& rhs) const {
 
 // =========================== YOUR CODE HERE ===========================
 
+File::File(const std::string& filename){
+
+}
+
 size_t File::getSize(){
-   return 5;
+   return ICON_DIM;
 }
 
 File::File(const File& rhs){
