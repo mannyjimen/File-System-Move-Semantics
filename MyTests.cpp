@@ -25,4 +25,7 @@ int main(){
         */
         //std::cout << "This is second file!\n" << secondFile << std::endl;
         std::cout << "This is first file !\n" << firstFile << std::endl;
+
+        delta = nullptr;
+        return 0;
 }
