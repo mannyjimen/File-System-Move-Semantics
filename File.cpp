@@ -67,7 +67,7 @@ File::File(const std::string& filename, std::string contents, int *icon){
 }
 
 size_t File::getSize() const{
-   return contents_.size() + filename_.size();
+   return contents_.size();
 }
 
 //copy constructor
