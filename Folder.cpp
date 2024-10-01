@@ -85,12 +85,13 @@ size_t Folder::getSize(){
 bool Folder::addFile(File & new_file){
    if (new_file.getName() == "")
       return false;
-   auto it1 = files_.begin();
-   while (it1 != files_.end()){
+
+   for (auto it1 = files_.begin(); it1 != files_.end(); it1++){
       if (it1->getName() == new_file.getName())
          return false;
       it1++;
    }
+   
    files_.push_back(std::move(new_file));
    return true;
 }
@@ -102,15 +103,41 @@ bool Folder::removeFile(const std::string & name){
          it1->setContents(files_.end()->getContents());
          it1->setIcon(files_.end()->getIcon());
          //not sure how to change name
+         
+         
+         files_.pop_back();
+         return true;
+         
       }
    }
    return false;
 }
 
-bool Folder::moveFileTo(const std::string & name, File & destination){
-
+bool Folder::moveFileTo(const std::string & name, Folder & destination){
+   
+   for (auto it1 = files_.begin(); it1 != files_.end(); it1++){
+      if (it1->getName() == name){
+         if (destination.addFile(*it1)){
+            removeFile(name);
+            return true;
+         }
+         else
+            return false;
+      }
+   }
+   return false;
 }
 
-bool Folder::copyFileTo(const std::string & name, File & destination){
-   
+bool Folder::copyFileTo(const std::string & name, Folder & destination){
+      
+      for (auto it1 = files_.begin(); it1 != files_.end(); it1++){
+      if (it1->getName() == name){
+         if (destination.addFile(*it1)){
+            return true;
+         }
+         else
+            return false;
+      }
+   }
+   return false;
 }

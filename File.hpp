@@ -68,7 +68,7 @@ class File {
       * @note You'll notice we provide a default value for the first possible argument (filename)
       *       Yes, this means we can define override the default constructor and define a parameterized one simultaneously.
       */
-      File(const std::string& filename = "NewFile.txt", std::string contents = "", int *icon = nullptr);
+      File(const std::string& filename = "NewFile.txt", std::string contents = "", int* icon = nullptr);
 
       /**
       * @brief Calculates and returns the size of the File Object (IN BYTES), using .size()

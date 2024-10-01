@@ -45,6 +45,7 @@ bool File::operator<(const File& rhs) const {
 
 File::File(const std::string& filename, std::string contents, int *icon){
    
+
    std::string realfilename = filename;
 
    int pcounter = 0;
@@ -74,14 +75,20 @@ size_t File::getSize() const{
 File::File(const File& rhs){
    filename_ = rhs.filename_;
    contents_ = rhs.contents_;
-   icon_ = rhs.icon_;
+   icon_ = new int[ICON_DIM];
+   for (int i = 0; i < ICON_DIM; i++){
+      icon_[i] = rhs.getIcon()[i];
+   }
 }
 
 //copy assignment
 File& File::operator = (const File& rhs){
    filename_ = rhs.filename_;
    contents_ = rhs.contents_;
-   icon_ = rhs.icon_;
+   icon_ = new int[ICON_DIM];
+   for (int i = 0; i < ICON_DIM; i++){
+      icon_[i] = rhs.getIcon()[i];
+   }
 
    return *this;
 }
@@ -90,15 +97,17 @@ File& File::operator = (const File& rhs){
 File::File(File && rhs){
    filename_ = std::move(rhs.filename_);
    contents_ = std::move(rhs.contents_);
-   icon_ = std::move(rhs.icon_);
+   icon_ = rhs.icon_;
+   rhs.icon_ = nullptr;
 }
 
 //move assignment
 File& File::operator = (File && rhs){
    filename_ = std::move(rhs.filename_);
    contents_ = std::move(rhs.contents_);
-   icon_ = std::move(rhs.icon_);
-
+   delete[] icon_;
+   icon_ = rhs.icon_;
+   rhs.icon_ = nullptr;
    return *this;
 }
 
