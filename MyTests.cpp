@@ -3,19 +3,19 @@
 
 int main(){
         
-        //int soup[5];
+        int soup[256];
         //int *delta = soup;
        
         //testing constructor
-        File firstFile("FavBands", "Interpol, Strokes, Arctic Monkeys");
-        File movieFile("Movies", "Goodfellas, Up, Mad Max: Fury Road, Kung Fu Panda 2");
-        File gameFile("Games", "Overwatch, Valorant, Elden Ring, Skate 3");
+        File firstFile("FavBands", "Interpol, Strokes, Arctic Monkeys", delta);
+        File movieFile("Movies", "Goodfellas, Up, Mad Max: Fury Road, Kung Fu Panda 2", delta);
+        File gameFile("Games", "Overwatch, Valorant, Elden Ring, Skate 3", delta);
 
-/*
+
         
         //TESTING CONSTRUCTORS AND ASSIGNMENT OPERATORS
         //testing copy constructor
-        //File secondFile(firstFile);
+        File secondFile(firstFile);
 
         //testing copy assignment operator
         //File secondFile; secondFile = std::copy(firstFile);
@@ -32,8 +32,8 @@ int main(){
         std::cout << "This is second file!\n" << secondFile << std::endl;
         //std::cout << "This is movie file !\n" << movieFile << std::endl;
         //TESTING FOLDER
-*/
-        
+
+        /*
         Folder newFolder("Media");
 
         //std::cout << newFolder.getName() << std::endl;
@@ -42,7 +42,7 @@ int main(){
         //if(newFolder.addFile(movieFile))
                 //std::cout << "Added movieFile" << std::endl;
         newFolder.addFile(gameFile);
-        newFolder.display();
-
+        newFolder.display();*/
+        
         return 0;
 }
