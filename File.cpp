@@ -43,26 +43,33 @@ bool File::operator<(const File& rhs) const {
 
 // =========================== YOUR CODE HERE ===========================
 
-File::File(const std::string& filename, std::string contents, int *icon){
+File::File(const std::string& filename, const std::string& contents, int *icon){
    
-
-   std::string realfilename = filename;
-
-   int pcounter = 0;
-   for (int i = 0; i < filename.length(); i++){
-      if (filename[i] == '.')
+   if (filename == ""){
+      filename_ = "NewFile.txt";
+      return;
+   }
+   int pcounter = 0; //period counter
+   
+   for (auto it1 = filename.begin(); it1 != filename.end(); ++it1){
+      if (*it1 == '.')
          pcounter++;
-      if ((!std::isalnum(filename[i]) && filename[i] != '.') || pcounter >= 2)
+      if ((!std::isalnum(*it1) && *it1 != '.') || pcounter == 2){
          throw InvalidFormatException("Invalid Folder Name: " + filename);
-      if (i == filename.length() - 1){
-         if (filename[i] == '.')   
-            realfilename = filename + "txt";
-         else if (pcounter == 0)
-            realfilename = filename + ".txt";
+      }
+      if (it1 == filename.end() - 1){
+         if (*it1 == '.'){
+            filename_ = filename + "txt";
+         }
+         else if (pcounter == 0){
+            filename_ = filename + ".txt";
+         }
+         else if (pcounter == 1){
+            filename_ = filename;
+         }
       }
    }
 
-   filename_ = realfilename;
    contents_ = contents;
    icon_ = icon;
 }
@@ -75,7 +82,7 @@ size_t File::getSize() const{
 File::File(const File& rhs){
    filename_ = rhs.filename_;
    contents_ = rhs.contents_;
-   icon_ = new int[ICON_DIM];
+   icon_ = new int[ICON_DIM];  //hard copy 
    for (int i = 0; i < ICON_DIM; i++){
       icon_[i] = rhs.getIcon()[i];
    }
@@ -83,21 +90,23 @@ File::File(const File& rhs){
 
 //copy assignment
 File& File::operator = (const File& rhs){
-   filename_ = rhs.filename_;
-   contents_ = rhs.contents_;
-   icon_ = new int[ICON_DIM];
-   for (int i = 0; i < ICON_DIM; i++){
-      icon_[i] = rhs.getIcon()[i];
-   }
+   if (this != &rhs){
+      filename_ = rhs.filename_;
+      contents_ = rhs.contents_;
+      icon_ = new int[ICON_DIM];   //hard copy
+      for (int i = 0; i < ICON_DIM; i++){
+         icon_[i] = rhs.getIcon()[i];
+      }
 
-   return *this;
+      return *this;
+   }
 }
 
 //move constructor
 File::File(File && rhs){
    filename_ = std::move(rhs.filename_);
    contents_ = std::move(rhs.contents_);
-   icon_ = rhs.icon_;
+   icon_ = rhs.icon_;    //this ends up moving rhs.icon (since its a pointer)
    rhs.icon_ = nullptr;
 }
 
@@ -105,8 +114,7 @@ File::File(File && rhs){
 File& File::operator = (File && rhs){
    filename_ = std::move(rhs.filename_);
    contents_ = std::move(rhs.contents_);
-   delete[] icon_;
-   icon_ = rhs.icon_;
+   icon_ = rhs.icon_;   //this ends up moving rhs.icon (since its a pointer)
    rhs.icon_ = nullptr;
    return *this;
 }
