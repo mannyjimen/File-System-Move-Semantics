@@ -93,13 +93,15 @@ File& File::operator = (const File& rhs){
    if (this != &rhs){
       filename_ = rhs.filename_;
       contents_ = rhs.contents_;
+      
+      delete[] icon_;
+      
       icon_ = new int[ICON_DIM];   //hard copy
       for (int i = 0; i < ICON_DIM; i++){
          icon_[i] = rhs.getIcon()[i];
       }
-
-      return *this;
    }
+   return *this;
 }
 
 //move constructor
@@ -112,10 +114,15 @@ File::File(File && rhs){
 
 //move assignment
 File& File::operator = (File && rhs){
-   filename_ = std::move(rhs.filename_);
-   contents_ = std::move(rhs.contents_);
-   icon_ = rhs.icon_;   //this ends up moving rhs.icon (since its a pointer)
-   rhs.icon_ = nullptr;
+   if (this != &rhs){
+      filename_ = std::move(rhs.filename_);
+      contents_ = std::move(rhs.contents_);
+      
+      delete[] icon_;
+      
+      icon_ = rhs.icon_;   //this ends up moving rhs.icon (since its a pointer)
+      rhs.icon_ = nullptr;
+   }
    return *this;
 }
 
