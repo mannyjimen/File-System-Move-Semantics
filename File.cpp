@@ -94,7 +94,8 @@ File& File::operator = (const File& rhs){
       filename_ = rhs.filename_;
       contents_ = rhs.contents_;
       
-      delete[] icon_;
+      if (icon_ != nullptr)
+         delete[] icon_;
       
       icon_ = new int[ICON_DIM];   //hard copy
       for (int i = 0; i < ICON_DIM; i++){
@@ -118,7 +119,8 @@ File& File::operator = (File && rhs){
       filename_ = std::move(rhs.filename_);
       contents_ = std::move(rhs.contents_);
       
-      delete[] icon_;
+      if (icon_ != nullptr)
+         delete[] icon_;
       
       icon_ = rhs.icon_;   //this ends up moving rhs.icon (since its a pointer)
       rhs.icon_ = nullptr;
@@ -128,5 +130,8 @@ File& File::operator = (File && rhs){
 
 //destructor
 File::~File(){
-   delete[] icon_;
+   if (icon_ != nullptr){
+      delete[] icon_;
+      icon_ = nullptr;
+   }
 }

@@ -72,23 +72,23 @@ void Folder::display() {
 //    That also means includes. Remember, all other includes go in .hpp
 // =========================== YOUR CODE HERE ===========================
 
-size_t Folder::getSize(){
+size_t Folder::getSize() const{
    size_t fullsize = 0; 
    for (auto it1 = files_.begin(); it1 != files_.end(); ++it1){
-      fullsize+= it1->getSize();
+      fullsize += it1->getSize();
    }
    return fullsize;
 }
 
 bool Folder::addFile(File & new_file){
-   if (new_file.getName() == ""){
+   if (new_file.getName().empty()){
       return false;
    }
    for (auto it1 = files_.begin(); it1 != files_.end(); it1++){
       if (it1->getName() == new_file.getName())
          return false;
    } 
-   files_.push_back(new_file);
+   files_.push_back(std::move(new_file));
    return true;
 }
 
@@ -97,8 +97,7 @@ bool Folder::removeFile(const std::string & name){
    for(auto it1 = files_.begin(); it1 != files_.end(); ++it1){
       //check if iterator is pointing to the file we want to remove 
       if (name == it1->getName()){       
-         *it1 = *(files_.end() - 1);
-         files_.pop_back();
+         files_.erase(it1);
          return true;
       }
    }
@@ -106,27 +105,36 @@ bool Folder::removeFile(const std::string & name){
 }
 
 bool Folder::moveFileTo(const std::string & name, Folder & destination){
-   
+   if (getName() == destination.getName())
+      return false;
+
+   for (auto it2 = destination.files_.begin(); it2 != destination.files_.end(); ++it2){
+      if (it2->getName() == name)
+         return false;
+   }
+
    for (auto it1 = files_.begin(); it1 != files_.end(); it1++){
       if (it1->getName() == name){
-         if (destination.addFile(*it1)){
-            this->removeFile(name);
-            return true;
-         }
+         destination.files_.push_back(std::move(*it1));
+         return true;
       }
    }
    return false;
 }
 
 bool Folder::copyFileTo(const std::string & name, Folder & destination){
-      
-      for (auto it1 = files_.begin(); it1 != files_.end(); it1++){
+   if (getName() == destination.getName())
+      return false;
+
+   for (auto it2 = destination.files_.begin(); it2 != destination.files_.end(); ++it2){
+      if (it2->getName() == name)
+         return false;
+   }
+
+   for (auto it1 = files_.begin(); it1 != files_.end(); it1++){
       if (it1->getName() == name){
-         if (destination.addFile(*it1)){
-            return true;
-         }
-         else
-            return false;
+         destination.files_.push_back(*it1);
+         return true;
       }
    }
    return false;

@@ -3,8 +3,9 @@
 
 int main(){
         
-        size_t icon_dimsum = 256;
-        int* delta = new int[icon_dimsum];
+        //size_t icon_dimsum = 256;
+        //int* delta = new int[icon_dimsum];
+        int delta[256] = {0};
        
         //testing constructor
         File bandFile("FavBands", "Interpol, Strokes, Arctic Monkeys", delta);
@@ -34,7 +35,7 @@ int main(){
         //std::cout << "This is movie file !\n" << movieFile << std::endl;
         //TESTING FOLDER
 */
-        
+     /*   
         Folder Media("Media");
         Folder Docs("Documents");
 
@@ -68,7 +69,7 @@ int main(){
 
 
         Media.display();
-        Docs.display();
+        Docs.display();*/
 
-        delete[] delta;
+        return 0;
 }
