@@ -101,7 +101,7 @@ File& File::operator = (const File& rhs){
          icon_[i] = rhs.getIcon()[i];
       }
    }
-   return *this;
+   return *this; // still return *this regardless
 }
 
 //move constructor
@@ -123,12 +123,10 @@ File& File::operator = (File && rhs){
       icon_ = rhs.icon_;   //this ends up moving rhs.icon (since its a pointer)
       rhs.icon_ = nullptr;
    }
-   return *this;
+   return *this; // still return *this regardless
 }
 
 //destructor
 File::~File(){
-   filename_ = "";
-   contents_ = "";
-   delete icon_;
+   delete[] icon_;
 }

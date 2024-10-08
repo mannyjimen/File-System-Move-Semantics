@@ -74,40 +74,32 @@ void Folder::display() {
 
 size_t Folder::getSize(){
    size_t fullsize = 0; 
-   auto it1 = files_.begin();
-   while (it1 != files_.end()){
-      fullsize += it1->getSize();
-      it1++;
+   for (auto it1 = files_.begin(); it1 != files_.end(); ++it1){
+      fullsize+= it1->getSize();
    }
    return fullsize;
 }
 
 bool Folder::addFile(File & new_file){
-   if (new_file.getName() == "")
+   if (new_file.getName() == ""){
       return false;
-
+   }
    for (auto it1 = files_.begin(); it1 != files_.end(); it1++){
       if (it1->getName() == new_file.getName())
          return false;
-      it1++;
-   }
-   
-   files_.push_back(std::move(new_file));
+   } 
+   files_.push_back(new_file);
    return true;
 }
 
 bool Folder::removeFile(const std::string & name){
-   auto it1 = files_.begin();
-   while (it1 != files_.end()){
-      if (it1->getName() == name){
-         it1->setContents(files_.end()->getContents());
-         it1->setIcon(files_.end()->getIcon());
-         //not sure how to change name
-         
-         
+   //loop through vector of files
+   for(auto it1 = files_.begin(); it1 != files_.end(); ++it1){
+      //check if iterator is pointing to the file we want to remove 
+      if (name == it1->getName()){       
+         *it1 = *(files_.end() - 1);
          files_.pop_back();
          return true;
-         
       }
    }
    return false;
@@ -118,11 +110,9 @@ bool Folder::moveFileTo(const std::string & name, Folder & destination){
    for (auto it1 = files_.begin(); it1 != files_.end(); it1++){
       if (it1->getName() == name){
          if (destination.addFile(*it1)){
-            removeFile(name);
+            this->removeFile(name);
             return true;
          }
-         else
-            return false;
       }
    }
    return false;
