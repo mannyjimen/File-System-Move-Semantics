@@ -72,40 +72,39 @@ void Folder::display() {
 //    That also means includes. Remember, all other includes go in .hpp
 // =========================== YOUR CODE HERE ===========================
 
-size_t Folder::getSize() const{
+size_t Folder::getSize(){
    size_t fullsize = 0; 
    for (auto it1 = files_.begin(); it1 != files_.end(); ++it1){
-      fullsize += it1->getSize();
+      fullsize += (it1->getSize());
    }
    return fullsize;
 }
 
 bool Folder::addFile(File & new_file){
-   if (new_file.getName().empty()){
+   /*if (new_file.getName().empty())
       return false;
-   }
-   for (auto it1 = files_.begin(); it1 != files_.end(); it1++){
+
+   for (auto it1 = files_.begin(); it1 != files_.end(); ++it1){
       if (it1->getName() == new_file.getName())
          return false;
    } 
+   
    files_.push_back(std::move(new_file));
-   return true;
+   return true;*/
 }
 
 bool Folder::removeFile(const std::string & name){
-   //loop through vector of files
-   for(auto it1 = files_.begin(); it1 != files_.end(); ++it1){
-      //check if iterator is pointing to the file we want to remove 
+   /*for(auto it1 = files_.begin(); it1 != files_.end(); ++it1){
       if (name == it1->getName()){       
          files_.erase(it1);
          return true;
       }
    }
-   return false;
+   return false;*/
 }
 
 bool Folder::moveFileTo(const std::string & name, Folder & destination){
-   if (getName() == destination.getName())
+   /*if (getName() == destination.getName())
       return false;
 
    for (auto it2 = destination.files_.begin(); it2 != destination.files_.end(); ++it2){
@@ -119,11 +118,11 @@ bool Folder::moveFileTo(const std::string & name, Folder & destination){
          return true;
       }
    }
-   return false;
+   return false;*/
 }
 
 bool Folder::copyFileTo(const std::string & name, Folder & destination){
-   if (getName() == destination.getName())
+   /*if (getName() == destination.getName())
       return false;
 
    for (auto it2 = destination.files_.begin(); it2 != destination.files_.end(); ++it2){
@@ -137,5 +136,5 @@ bool Folder::copyFileTo(const std::string & name, Folder & destination){
          return true;
       }
    }
-   return false;
+   return false;*/
 }

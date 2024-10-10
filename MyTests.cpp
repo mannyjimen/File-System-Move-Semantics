@@ -2,8 +2,7 @@
 #include "Folder.hpp"
 
 int main(){
-        
-        //size_t icon_dimsum = 256;
+     /*   //size_t icon_dimsum = 256;
         //int* delta = new int[icon_dimsum];
         int delta[256] = {0};
        
@@ -12,9 +11,8 @@ int main(){
         File movieFile("Movies.pdf", "Goodfellas, Up, Mad Max: Fury Road, Kung Fu Panda 2", delta);
         File gameFile("Games", "Overwatch, Valorant, Elden Ring, Skate 3", delta);
         File historyEssay("wgsEssay", "Humans evolved from apes!", delta);
-        File jobResume("Resume.pdf", "I know how to do everything! Hire me!", delta);
-
-/*       
+        File jobResume("Resume.pdf", "I know how to do everything! Hire me!", delta);*/
+/*   
         //TESTING CONSTRUCTORS AND ASSIGNMENT OPERATORS
         //testing copy constructor
         //File secondFile(bandFile);
@@ -29,23 +27,25 @@ int main(){
         //File secondFile; secondFile = std::move(bandFile); 
 
 
-        std::cout << "This is first file!\n" << bandFile << std::endl;
+        std::cout << "This is bandFile!\n" << bandFile << std::endl;
         std::cout << "--------------------------" << std::endl;
         std::cout << "This is second file!\n" << secondFile << std::endl;
         //std::cout << "This is movie file !\n" << movieFile << std::endl;
         //TESTING FOLDER
 */
-     /*   
+   /*
         Folder Media("Media");
         Folder Docs("Documents");
 
         //std::cout << Media.getName() << std::endl;
+        //std::cout << Docs.getName() << std::endl;
         if (Media.addFile(bandFile))
                 std::cout << "Added band file to Media" << std::endl;
         if (Media.addFile(movieFile))   
-                std::cout << "Added movie file to Media" << std::endl;
+                std::cout << "Added movie file to Media" << std::endl;*/
 
 
+/*
         if (Docs.addFile(historyEssay))
                 std::cout << "Added historyEssay to Docs" << std::endl;
         if (Docs.addFile(jobResume))
@@ -67,9 +67,7 @@ int main(){
         if (Docs.copyFileTo("FavBands.txt", Media))
                 std::cout << "Copied FavBands.txt from Docs to Media!" << std::endl;
 
-
-        Media.display();
-        Docs.display();*/
+*/
 
         return 0;
 }

@@ -45,7 +45,7 @@ bool File::operator<(const File& rhs) const {
 
 File::File(const std::string& filename, const std::string& contents, int *icon){
    
-   if (filename == ""){
+   if (filename.empty()){
       filename_ = "NewFile.txt";
       return;
    }
@@ -57,7 +57,7 @@ File::File(const std::string& filename, const std::string& contents, int *icon){
       if ((!std::isalnum(*it1) && *it1 != '.') || pcounter == 2){
          throw InvalidFormatException("Invalid Folder Name: " + filename);
       }
-      if (it1 == filename.end() - 1){
+      else if (it1 == filename.end() - 1){
          if (*it1 == '.'){
             filename_ = filename + "txt";
          }
@@ -97,7 +97,7 @@ File& File::operator = (const File& rhs){
       if (icon_ != nullptr)
          delete[] icon_;
       
-      icon_ = new int[ICON_DIM];   //hard copy
+      icon_ = new int[ICON_DIM];   //deep copy  
       for (int i = 0; i < ICON_DIM; i++){
          icon_[i] = rhs.getIcon()[i];
       }
@@ -109,7 +109,7 @@ File& File::operator = (const File& rhs){
 File::File(File && rhs){
    filename_ = std::move(rhs.filename_);
    contents_ = std::move(rhs.contents_);
-   icon_ = rhs.icon_;    //this ends up moving rhs.icon (since its a pointer)
+   icon_ = rhs.icon_;    //shallow copy
    rhs.icon_ = nullptr;
 }
 

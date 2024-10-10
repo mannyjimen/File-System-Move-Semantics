@@ -1,10 +1,5 @@
 #pragma once
 
-#include <iostream>
-#include <string>
-#include <vector>
-#include <iterator>
-#include <cstdint>
 #include "InvalidFormatException.hpp"
 
 class File {
