@@ -94,17 +94,17 @@ bool Folder::addFile(File & new_file){
 }
 
 bool Folder::removeFile(const std::string & name){
-   /*for(auto it1 = files_.begin(); it1 != files_.end(); ++it1){
+   for(auto it1 = files_.begin(); it1 != files_.end(); ++it1){
       if (name == it1->getName()){       
          files_.erase(it1);
          return true;
       }
    }
-   return false;*/
+   return false;
 }
 
 bool Folder::moveFileTo(const std::string & name, Folder & destination){
-   /*if (getName() == destination.getName())
+   if (getName() == destination.getName())
       return false;
 
    for (auto it2 = destination.files_.begin(); it2 != destination.files_.end(); ++it2){
@@ -118,7 +118,7 @@ bool Folder::moveFileTo(const std::string & name, Folder & destination){
          return true;
       }
    }
-   return false;*/
+   return false;
 }
 
 bool Folder::copyFileTo(const std::string & name, Folder & destination){
