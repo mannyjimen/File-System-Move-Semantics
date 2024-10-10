@@ -82,9 +82,11 @@ size_t File::getSize() const{
 File::File(const File& rhs){
    filename_ = rhs.filename_;
    contents_ = rhs.contents_;
-   icon_ = new int[ICON_DIM];  //hard copy 
-   for (int i = 0; i < ICON_DIM; i++){
-      icon_[i] = rhs.getIcon()[i];
+   if (rhs.icon_){ 
+      icon_ = new int[ICON_DIM];  //hard copy 
+      for (int i = 0; i < ICON_DIM; i++){
+         icon_[i] = rhs.icon_[i];
+      }
    }
 }
 
@@ -97,10 +99,13 @@ File& File::operator = (const File& rhs){
       if (icon_ != nullptr)
          delete[] icon_;
       
-      icon_ = new int[ICON_DIM];   //deep copy  
-      for (int i = 0; i < ICON_DIM; i++){
-         icon_[i] = rhs.getIcon()[i];
+      if(rhs.icon_){
+         icon_ = new int[ICON_DIM];   //deep copy  
+         for (int i = 0; i < ICON_DIM; i++){
+            icon_[i] = rhs.icon_[i];
+         }
       }
+
    }
    return *this; // still return *this regardless
 }
@@ -109,7 +114,7 @@ File& File::operator = (const File& rhs){
 File::File(File && rhs){
    filename_ = std::move(rhs.filename_);
    contents_ = std::move(rhs.contents_);
-   icon_ = rhs.icon_;    //shallow copy
+   icon_ = rhs.icon_;
    rhs.icon_ = nullptr;
 }
 
